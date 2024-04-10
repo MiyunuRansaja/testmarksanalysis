@@ -1,0 +1,75 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    overflow: hidden;
+}
+
+canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Falling shadow effect */
+    animation: fadeIn 1s ease; /* Fade-in animation */
+    backdrop-filter: blur(10px); /* Background blur effect */
+    color: #000; /* Black text */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 400px; /* Adjust the width as needed */
+    border: 2px solid rgba(255, 255, 255, 0.5); /* Glassy 3D border */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+h1 {
+    color: #1f235f; /* Neon blue */
+}
+
+input {
+    padding: 10px;
+    margin-top: 10px;
+    width: 80%;
+    border: 1px solid #dadada; /* White border */
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white */
+    color: #000; /* Black text */
+}
+
+button {
+    background-color: #007a99; /* Darker blue */
+    color: #fff;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Smooth color transition */
+}
+
+button:hover {
+    background-color: #004a60; /* Darker blue on hover */
+}
+
+.error-message {
+    color: #ff3333; /* Neon red */
+    margin-top: 10px;
+}
+

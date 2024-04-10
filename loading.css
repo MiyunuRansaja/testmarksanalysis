@@ -1,0 +1,82 @@
+@import "normalize.css";
+
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff; /* White background */
+    overflow: hidden; /* Prevent scrolling while loading */
+}
+
+.loading-overlay {
+    opacity: 1; /* Initially set opacity to 1 */
+    transition: opacity 0.5s ease; /* Add opacity transition */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff; /* White background */
+    z-index: 9999; /* Ensure loading overlay is on top of everything */
+}
+
+.loading-container {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loader {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: relative;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.loader:before,
+.loader:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #1f235f; /* Neon blue */
+}
+
+.loader:before {
+    animation: rotate 2s infinite linear;
+}
+
+.loader:after {
+    animation: rotate 1s infinite linear reverse;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}

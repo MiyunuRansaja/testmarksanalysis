@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="styles-marks.css">
+    <link rel="stylesheet" href="loading.css"> 
+
+    <!-- Link to the script for the marks page -->
+    <script src="script-marks.js" defer></script>
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Falling shadow effect */
+            animation: fadeIn 1s ease; /* Fade-in animation */
+            backdrop-filter: blur(10px); /* Background blur effect */
+            color: #000; /* Black text */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 400px; /* Adjust the width as needed */
+            border: 2px solid rgba(255, 255, 255, 0.5); /* Glassy 3D border */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            color: #1f235f; /* Neon blue */
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #fff; /* White border */
+            color: #000; /* Black text */
+        }
+
+        th {
+            background-color: #007a99; /* Darker blue */
+            color: #fff;
+        }
+
+        .totals {
+            margin-top: 20px;
+        }
+
+        .error-message {
+            color: #ff3333; /* Neon red */
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        // JavaScript code for marks page (if any)
+    </script>
+    <title>Marks Page</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="container">
+        <h1>Marks Analysis of A.I.M.Rehan</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Marks</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Replace the following rows with your actual data -->
+                <tr>
+                    <td>Religion</td>
+                    <td>91</td>
+                    <td>A</td>
+                </tr>
+                <tr>
+                    <td>Sinhala</td>
+                    <td>67</td>
+                    <td>B</td>
+                </tr>
+                <tr>
+                    <td>History</td>
+                    <td>80</td>
+                    <td>A</td>
+                </tr>
+                <tr>
+                    <td>English</td>
+                    <td>90</td>
+                    <td>A</td>
+                </tr>
+                <tr>
+                    <td>Mathematics</td>
+                    <td>88</td>
+                    <td>A</td>
+                </tr>
+                <tr>
+                    <td>Science</td>
+                    <td>87</td>
+                    <td>A</td>
+                </tr>
+                <tr>
+                    <td>Commerce</td>
+                    <td>81</td>
+                    <td>A</td>
+                </tr>
+                <tr>
+                    <td>English Lit.</td>
+                    <td>76</td>
+                    <td>A</td>
+                </tr>
+                <tr>
+                    <td>ICT</td>
+                    <td>84</td>
+                    <td>A</td>
+                </tr>
+                <!-- Add rows for other subjects -->
+            </tbody>
+        </table>
+
+        <div class="totals">
+            <p>Total: <span id="total">744</span></p>
+            <p>Place: <span id="place">-<sup>th</sup></span></p>
+            <p>Average: <span id="average">82.67</span></p>
+        </div>
+
+        <p id="errorText" class="error-message"></p>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 100;
+
+        class Particle {
+            constructor(x, y) {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 5 + 1;
+                this.baseSize = this.size;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+                this.color = "hsl(" + Math.random() * 360 + ", 50%, 50%)";
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.1;
+                if (this.size <= 0.2) {
+                    this.size = this.baseSize;
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                }
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+        init();
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        canvas.addEventListener("mousemove", (event) => {
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+
+            for (let i = 0; i < particles.length; i++) {
+                const dx = particles[i].x - mouseX;
+                const dy = particles[i].y - mouseY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 100) {
+                    particles[i].size = 10;
+                    particles[i].color = "hsl(" + Math.random() * 360 + ", 50%, 50%)";
+                    particles[i].speedX = dx * 0.05;
+                    particles[i].speedY = dy * 0.05;
+                }
+            }
+        });
+    </script>
+
+    <!-- Your HTML content for page 1 -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-container">
+            <div class="loader"></div>
+        </div>
+    </div>
+    <script>
+        // JavaScript code to hide the loading animation after 1 second
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loading-overlay').style.opacity = '0';
+                setTimeout(function() {
+                    document.getElementById('loading-overlay').style.display = 'none';
+                }, 1000); // Hide loading overlay after 1 second (1000 milliseconds)
+            }, 1000); // Fade out loading overlay after 1 second (1000 milliseconds)
+        });
+    </script>
+</body>
+</html>
